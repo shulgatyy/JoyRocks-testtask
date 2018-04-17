@@ -25,9 +25,23 @@ const MyScene = cc.Scene.extend({
     this.addChild(label, 1);
     this.label = label;
     this.score = 0;
+
+    this.coin = cc.Sprite.create("res/Coin.png");
+    this.addChild(this.coin);
   },
   scoreUp(count) {
     this.score += count;
     this.label.setString(`scores: ${this.score}`);
   },
+  spawnCoin(pos, count) {
+    this.coin.setPosition(pos);
+    this.coin.runAction(
+      new cc.Sequence(
+        new cc.Show(),
+        new cc.MoveTo(0.2, this.label.getPosition()),
+        new cc.Hide(),
+        new cc.CallFunc(() => this.scoreUp(count))
+      )
+    );
+  }
 });

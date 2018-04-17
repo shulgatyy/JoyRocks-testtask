@@ -35,7 +35,7 @@ const Seed = cc.Sprite.extend({
   harvest() {
     if (!this.ready) return;
     this.setTexture(`res/Seed0${this.num}_01.png`);
-    this.getParent().scoreUp(this.score);
+    this.getParent().spawnCoin(this.getPosition(), this.score);
     this.start();
   }
 });
