@@ -13,7 +13,7 @@ const Seed = cc.Sprite.extend({
     this.score = 10 ** (num - 1);
     this.growthAction = new cc.Sequence(
       new cc.DelayTime(interval),
-      new cc.CallFunc(this.ready.bind(this))
+      new cc.CallFunc(this.ready, this)
     );
     this.start();
 
@@ -25,15 +25,15 @@ const Seed = cc.Sprite.extend({
     cc.eventManager.addListener(onTouch, this);
   },
   start() {
-    this.ready = false;
+    this.isReady = false;
     this.runAction(this.growthAction);
   },
   ready() {
-    this.ready = true;
+    this.isReady = true;
     this.setTexture(`res/Seed0${this.num}_02.png`);
   },
   harvest() {
-    if (!this.ready) return;
+    if (!this.isReady) return;
     this.setTexture(`res/Seed0${this.num}_01.png`);
     this.getParent().spawnCoin(this.getPosition(), this.score);
     this.start();
